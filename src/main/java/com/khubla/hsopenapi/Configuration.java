@@ -1,4 +1,4 @@
-package com.khubla.hsmqtt;
+package com.khubla.hsopenapi;
 
 import java.io.*;
 import java.util.*;
@@ -12,7 +12,7 @@ import com.khubla.hsclient.*;
  *         </p>
  */
 public class Configuration {
-	private static final String FILENAME = "hsmqtt.properties";
+	private static final String FILENAME = "hsopenapi.properties";
 	private static Configuration instance = null;
 
 	public static Configuration getInstance() {
@@ -23,7 +23,6 @@ public class Configuration {
 	}
 
 	private HSConfiguration hsConfiguration;
-	private MQTTConfiguration mqttConfiguration;
 	private int pollingthreads;
 	private int pollinginterval;
 
@@ -48,15 +47,10 @@ public class Configuration {
 			final Properties properties = new Properties();
 			properties.load(new FileInputStream(FILENAME));
 			hsConfiguration = new HSConfiguration(properties.getProperty("hsurl"), properties.getProperty("hsuser"), properties.getProperty("hspassword"));
-			mqttConfiguration = new MQTTConfiguration(properties.getProperty("mqtturl"), properties.getProperty("mqtttopic"), properties.getProperty("mqttpublisherid"));
 			pollingthreads = Integer.parseInt(properties.getProperty("pollingthreads"));
 			pollinginterval = Integer.parseInt(properties.getProperty("pollinginterval"));
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	public MQTTConfiguration getMqttConfiguration() {
-		return mqttConfiguration;
 	}
 }

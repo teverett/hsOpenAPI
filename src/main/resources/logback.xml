@@ -1,5 +1,5 @@
 <configuration>
-	<property name="LOG_NAME" value="hsmqtt.log" />
+	<property name="LOG_NAME" value="hsopenapi.log" />
 	<appender name="FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${LOG_NAME}</file>

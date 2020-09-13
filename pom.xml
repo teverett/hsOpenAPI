@@ -4,7 +4,7 @@
 	<artifactId>hsopenapi</artifactId>
 	<packaging>jar</packaging>
 	<name>khubla.com HomeSeer hsOpenAPI</name>
-	<version>1.0.3-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<description>An OpenAPI server for HomeSeer</description>
 	<properties>
 		<target.jvm>1.8</target.jvm>
