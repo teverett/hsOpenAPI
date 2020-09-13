@@ -62,4 +62,54 @@ public class HomeseerApiImpl implements HomeseerApi {
 			}
 		}
 	}
+
+	// /homeseer/locations1
+	@Override
+	public List<String> getLocations1() {
+		HSClient hsClient = null;
+		try {
+			hsClient = getHSClient();
+			List<String> lst = hsClient.getLocations1();
+			if (null != lst) {
+				return lst;
+			} else {
+				throw new NotFoundException();
+			}
+		} catch (Exception e) {
+			throw new InternalServerErrorException(e);
+		} finally {
+			try {
+				if (null != hsClient) {
+					hsClient.close();
+				}
+			} catch (Exception e) {
+				logger.warn("Exception closing HSClient", e);
+			}
+		}
+	}
+
+	// /homeseer/locations2
+	@Override
+	public List<String> getLocations2() {
+		HSClient hsClient = null;
+		try {
+			hsClient = getHSClient();
+			List<String> lst = hsClient.getLocations2();
+			if (null != lst) {
+				return lst;
+			} else {
+				throw new NotFoundException();
+			}
+		} catch (Exception e) {
+			throw new InternalServerErrorException(e);
+		} finally {
+			try {
+				if (null != hsClient) {
+					hsClient.close();
+				}
+			} catch (Exception e) {
+				logger.warn("Exception closing HSClient", e);
+			}
+		}
+	}
 }

@@ -34,6 +34,46 @@ paths:
           description: 'Not Authenticated'
         '403':
           description: 'Access token does not have the required scope'
+  /homeseer/locations1:
+    get:
+      tags:
+      - "homeseer"
+      summary: "Get all locations 1"
+      description: "This can only be done by the logged in user."
+      operationId: "getLocations1"
+      produces:
+      - "application/json"
+      responses:
+        '200':
+          description: list of locations
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Location'
+        '401':
+          description: 'Not Authenticated'
+        '403':
+          description: 'Access token does not have the required scope'
+  /homeseer/locations2:
+    get:
+      tags:
+      - "homeseer"
+      summary: "Get all locations 2"
+      description: "This can only be done by the logged in user."
+      operationId: "getLocations2"
+      produces:
+      - "application/json"
+      responses:
+        '200':
+          description: list of locations
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Location'
+        '401':
+          description: 'Not Authenticated'
+        '403':
+          description: 'Access token does not have the required scope'
 securityDefinitions:
   basicAuth:
     type: basic
@@ -49,3 +89,7 @@ definitions:
         type: "string"
     xml:
       name: "System"
+  Location:
+    type: "string"
+    xml:
+      name: "Location"
