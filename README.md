@@ -20,9 +20,3 @@ hsOpenAPI is configured via the file "hsopenapi.properties".  A typical example 
 hsurl=http://192.168.75.129/JSON
 hsuser=HOMESEERUSERNAME
 hspassword=HOMESEERPASSWORD
-
-# Number of threads to poll HomeSeer on
-pollingthreads=5
-
-# minutes
-pollinginterval=1

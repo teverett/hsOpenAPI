@@ -23,8 +23,6 @@ public class Configuration {
 	}
 
 	private HSConfiguration hsConfiguration;
-	private int pollingthreads;
-	private int pollinginterval;
 
 	private Configuration() {
 		load();
@@ -34,21 +32,11 @@ public class Configuration {
 		return hsConfiguration;
 	}
 
-	public int getPollinginterval() {
-		return pollinginterval;
-	}
-
-	public int getPollingthreads() {
-		return pollingthreads;
-	}
-
 	private void load() {
 		try {
 			final Properties properties = new Properties();
 			properties.load(new FileInputStream(FILENAME));
 			hsConfiguration = new HSConfiguration(properties.getProperty("hsurl"), properties.getProperty("hsuser"), properties.getProperty("hspassword"));
-			pollingthreads = Integer.parseInt(properties.getProperty("pollingthreads"));
-			pollinginterval = Integer.parseInt(properties.getProperty("pollinginterval"));
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}
