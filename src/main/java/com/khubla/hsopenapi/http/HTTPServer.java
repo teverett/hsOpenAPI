@@ -12,8 +12,11 @@ import javax.servlet.*;
 
 import org.apache.cxf.endpoint.*;
 import org.apache.cxf.jaxrs.*;
+import org.apache.cxf.jaxrs.lifecycle.*;
+import org.openapitools.api.*;
 
 import com.fasterxml.jackson.jaxrs.json.*;
+import com.khubla.hsopenapi.impl.*;
 /*
  * https://github.com/apache/cxf/tree/master/distribution/src/main/release/samples/jax_rs
  */
@@ -38,11 +41,8 @@ public class HTTPServer {
 
 	public void start() throws Exception {
 		jaxrsServerFactoryBean = new JAXRSServerFactoryBean();
-		// jaxrsServerFactoryBean.setResourceClasses(UserApiImpl.class, CardApiImpl.class);
-		// jaxrsServerFactoryBean.setResourceProvider(UserApiImpl.class, new
-		// GuiceResourceProvider(UserApiImpl.class));
-		// jaxrsServerFactoryBean.setResourceProvider(CardApiImpl.class, new
-		// GuiceResourceProvider(CardApiImpl.class));
+		jaxrsServerFactoryBean.setResourceClasses(HomeseerApi.class);
+		jaxrsServerFactoryBean.setResourceProvider(HomeseerApi.class, new SingletonResourceProvider(new HomeseerApiImpl()));
 		jaxrsServerFactoryBean.setProvider(new JacksonJsonProvider());
 		jaxrsServerFactoryBean.setAddress("http://localhost:" + Integer.toString(port) + "/");
 		// jaxrsServerFactoryBean.setProvider(new DuetyBasicAuthAuthenticationFilter());

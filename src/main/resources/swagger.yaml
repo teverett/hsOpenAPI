@@ -1,0 +1,51 @@
+swagger: "2.0"
+info:
+  description: "API Definition for HomeSeer"
+  version: "1.0.0"
+  title: "HomeSeer API"
+  contact:
+    email: "tom@khubla.com"
+host: "homeseer.khubla.com"
+basePath: "/v2"
+tags:
+- name: "homeseer"
+  description: "HomeSeer Operations"
+schemes:
+- "https"
+- "http"
+paths:
+  /homeseer/getsystems:
+    get:
+      tags:
+      - "homeseer"
+      summary: "Get all systems"
+      description: "This can only be done by the logged in user."
+      operationId: "getSystems"
+      produces:
+      - "application/json"
+      responses:
+        '200':
+          description: list of systems
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/System'
+        '401':
+          description: 'Not Authenticated'
+        '403':
+          description: 'Access token does not have the required scope'
+securityDefinitions:
+  basicAuth:
+    type: basic
+security:
+  - basicAuth: []
+definitions:
+  System:
+    type: "object"
+    properties:
+      license:
+        type: "string"
+      friendly_name:
+        type: "string"
+    xml:
+      name: "System"
