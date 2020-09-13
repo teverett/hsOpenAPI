@@ -14,7 +14,11 @@
 		<dependency-check-maven.version>6.0.0</dependency-check-maven.version>
 		<commons-cli.version>1.4</commons-cli.version>
 		<junit.version>4.13</junit.version>
-		<paho.version>1.2.5</paho.version>
+		<openapi-generator-maven-plugin.version>4.3.1</openapi-generator-maven-plugin.version>
+		<swagger-jaxrs.version>1.6.2</swagger-jaxrs.version>
+		<cxf.version>3.3.7</cxf.version>
+		<jakarta.ws.rs-api.version>2.1.6</jakarta.ws.rs-api.version>
+		<httpclient.version>4.5.12</httpclient.version>
 	</properties>
 	<developers>
 		<developer>
@@ -62,6 +66,47 @@
 			<artifactId>logback-classic</artifactId>
 			<version>1.2.3</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<!-- This dependency is needed if you're using the Jetty container -->
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http-jetty</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.ws.rs</groupId>
+			<artifactId>jakarta.ws.rs-api</artifactId>
+			<version>${jakarta.ws.rs-api.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${httpclient.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-jaxrs</artifactId>
+			<version>${swagger-jaxrs.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-rs-service-description</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-json-provider</artifactId>
+			<version>2.11.2</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -90,6 +135,29 @@
 									<version>${required-maven-version}</version>
 								</requireMavenVersion>
 							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<!-- https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-maven-plugin -->
+				<groupId>org.openapitools</groupId>
+				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<version>${openapi-generator-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<goals>
+			<!-- 				<goal>generate</goal> -->
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/src/main/resources/swagger.yaml</inputSpec>
+							<generatorName>jaxrs-cxf</generatorName>
+							<generateSupportingFiles>true</generateSupportingFiles>
+							<configOptions>
+								<sourceFolder>src/main/java</sourceFolder>
+							</configOptions>
+							<generateModelTests>false</generateModelTests>
+							<generateApiTests>false</generateApiTests>
 						</configuration>
 					</execution>
 				</executions>
