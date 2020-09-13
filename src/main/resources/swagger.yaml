@@ -74,6 +74,26 @@ paths:
           description: 'Not Authenticated'
         '403':
           description: 'Access token does not have the required scope'
+  /homeseer/devices:
+    get:
+      tags:
+      - "homeseer"
+      summary: "Get all devices"
+      description: "This can only be done by the logged in user."
+      operationId: "getDevices"
+      produces:
+      - "application/json"
+      responses:
+        '200':
+          description: list of devices
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Device'
+        '401':
+          description: 'Not Authenticated'
+        '403':
+          description: 'Access token does not have the required scope'
 securityDefinitions:
   basicAuth:
     type: basic
@@ -93,3 +113,24 @@ definitions:
     type: "string"
     xml:
       name: "Location"
+  Device:
+    type: "object"
+    properties:
+      ref:
+        type: "integer"
+      name:
+        type: "string"
+      location:
+        type: "string"
+      location2:
+        type: "string"
+      value:
+        type: "number"
+      status:
+        type: "string"
+      last_change:
+        type: "string"
+      device_type_string:
+        type: "string"
+    xml:
+      name: "Device"

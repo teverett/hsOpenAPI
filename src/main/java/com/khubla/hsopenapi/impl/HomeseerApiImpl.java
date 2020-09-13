@@ -7,6 +7,7 @@ import javax.ws.rs.*;
 
 import org.modelmapper.*;
 import org.openapitools.api.*;
+import org.openapitools.model.Device;
 import org.openapitools.model.System;
 import org.slf4j.*;
 
@@ -20,47 +21,47 @@ public class HomeseerApiImpl implements HomeseerApi {
 	 */
 	private static final Logger logger = LoggerFactory.getLogger(HomeseerApiImpl.class);
 
-	/**
-	 * get logged in HSClient
-	 * 
-	 * @return an HSClient
-	 * @throws HSClientException
-	 * @throws IOException
-	 */
-	private HSClient getHSClient() throws HSClientException, IOException {
-		HSClient ret = new HSClientImpl();
-		ret.connect(Configuration.getInstance().getHsConfiguration());
-		return ret;
-	}
-
-	// /homeseer/getsystems
+	// /homeseer/devices
 	@Override
-	public List<System> getSystems() {
+	public List<Device> getDevices() {
 		HSClient hsClient = null;
 		try {
 			final ModelMapper modelMapper = new ModelMapper();
 			hsClient = getHSClient();
-			List<HSSystem> lst = hsClient.getSystems();
-			if (null != lst) {
-				List<System> systems = new ArrayList<System>();
-				for (HSSystem hsSystem : lst) {
-					systems.add(modelMapper.map(hsSystem, System.class));
+			final Map<Integer, com.khubla.hsclient.domain.Device> map = hsClient.getDevicesByRef();
+			if (null != map) {
+				final List<Device> devices = new ArrayList<Device>();
+				for (final com.khubla.hsclient.domain.Device device : map.values()) {
+					devices.add(modelMapper.map(device, Device.class));
 				}
-				return systems;
+				return devices;
 			} else {
 				throw new NotFoundException();
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			throw new InternalServerErrorException(e);
 		} finally {
 			try {
 				if (null != hsClient) {
 					hsClient.close();
 				}
-			} catch (Exception e) {
+			} catch (final Exception e) {
 				logger.warn("Exception closing HSClient", e);
 			}
 		}
+	}
+
+	/**
+	 * get logged in HSClient
+	 *
+	 * @return an HSClient
+	 * @throws HSClientException
+	 * @throws IOException
+	 */
+	private HSClient getHSClient() throws HSClientException, IOException {
+		final HSClient ret = new HSClientImpl();
+		ret.connect(Configuration.getInstance().getHsConfiguration());
+		return ret;
 	}
 
 	// /homeseer/locations1
@@ -69,20 +70,20 @@ public class HomeseerApiImpl implements HomeseerApi {
 		HSClient hsClient = null;
 		try {
 			hsClient = getHSClient();
-			List<String> lst = hsClient.getLocations1();
+			final List<String> lst = hsClient.getLocations1();
 			if (null != lst) {
 				return lst;
 			} else {
 				throw new NotFoundException();
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			throw new InternalServerErrorException(e);
 		} finally {
 			try {
 				if (null != hsClient) {
 					hsClient.close();
 				}
-			} catch (Exception e) {
+			} catch (final Exception e) {
 				logger.warn("Exception closing HSClient", e);
 			}
 		}
@@ -94,20 +95,50 @@ public class HomeseerApiImpl implements HomeseerApi {
 		HSClient hsClient = null;
 		try {
 			hsClient = getHSClient();
-			List<String> lst = hsClient.getLocations2();
+			final List<String> lst = hsClient.getLocations2();
 			if (null != lst) {
 				return lst;
 			} else {
 				throw new NotFoundException();
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			throw new InternalServerErrorException(e);
 		} finally {
 			try {
 				if (null != hsClient) {
 					hsClient.close();
 				}
-			} catch (Exception e) {
+			} catch (final Exception e) {
+				logger.warn("Exception closing HSClient", e);
+			}
+		}
+	}
+
+	// /homeseer/getsystems
+	@Override
+	public List<System> getSystems() {
+		HSClient hsClient = null;
+		try {
+			final ModelMapper modelMapper = new ModelMapper();
+			hsClient = getHSClient();
+			final List<HSSystem> lst = hsClient.getSystems();
+			if (null != lst) {
+				final List<System> systems = new ArrayList<System>();
+				for (final HSSystem hsSystem : lst) {
+					systems.add(modelMapper.map(hsSystem, System.class));
+				}
+				return systems;
+			} else {
+				throw new NotFoundException();
+			}
+		} catch (final Exception e) {
+			throw new InternalServerErrorException(e);
+		} finally {
+			try {
+				if (null != hsClient) {
+					hsClient.close();
+				}
+			} catch (final Exception e) {
 				logger.warn("Exception closing HSClient", e);
 			}
 		}

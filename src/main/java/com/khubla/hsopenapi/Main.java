@@ -26,9 +26,8 @@ class Main {
 			 * parse
 			 */
 			final CommandLineParser parser = new DefaultParser();
-			CommandLine commandline = null;
 			try {
-				commandline = parser.parse(options, args);
+				parser.parse(options, args);
 				/*
 				 * config
 				 */
