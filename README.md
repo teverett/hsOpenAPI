@@ -20,3 +20,6 @@ hsOpenAPI is configured via the file "hsopenapi.properties".  A typical example 
 hsurl=http://192.168.75.129/JSON
 hsuser=HOMESEERUSERNAME
 hspassword=HOMESEERPASSWORD
+
+http.port=8080
+

@@ -3,8 +3,5 @@ hsurl=http://192.168.75.129/JSON
 hsuser=UUUUUU
 hspassword=PPPP
 
-# Number of threads to poll HomeSeer on
-pollingthreads=5
 
-# milliseconds
-pollinginterval=500
+http.port=8080

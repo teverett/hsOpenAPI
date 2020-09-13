@@ -14,6 +14,7 @@ import com.khubla.hsclient.*;
 public class Configuration {
 	private static final String FILENAME = "hsopenapi.properties";
 	private static Configuration instance = null;
+	private Integer httpPort;
 
 	public static Configuration getInstance() {
 		if (null == instance) {
@@ -37,8 +38,16 @@ public class Configuration {
 			final Properties properties = new Properties();
 			properties.load(new FileInputStream(FILENAME));
 			hsConfiguration = new HSConfiguration(properties.getProperty("hsurl"), properties.getProperty("hsuser"), properties.getProperty("hspassword"));
+			/*
+			 * http
+			 */
+			httpPort = Integer.parseInt(properties.getProperty("http.port"));
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public Integer getHttpPort() {
+		return httpPort;
 	}
 }
