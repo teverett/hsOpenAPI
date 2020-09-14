@@ -173,7 +173,7 @@ definitions:
         type: "number"
       status:
         type: "string"
-      last_change:
+      lastchange:
         type: "integer"
         format: "int64"
       device_type_string:
