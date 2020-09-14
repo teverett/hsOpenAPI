@@ -21,6 +21,31 @@ public class HomeseerApiImpl implements HomeseerApi {
 	 */
 	private static final Logger logger = LoggerFactory.getLogger(HomeseerApiImpl.class);
 
+	@Override
+	public Device getDevice(Integer ref) {
+		HSClient hsClient = null;
+		try {
+			final ModelMapper modelMapper = new ModelMapper();
+			hsClient = getHSClient();
+			final com.khubla.hsclient.domain.Device device = hsClient.getDevice(ref);
+			if (null != device) {
+				return modelMapper.map(device, Device.class);
+			} else {
+				throw new NotFoundException();
+			}
+		} catch (final Exception e) {
+			throw new InternalServerErrorException(e);
+		} finally {
+			try {
+				if (null != hsClient) {
+					hsClient.close();
+				}
+			} catch (final Exception e) {
+				logger.warn("Exception closing HSClient", e);
+			}
+		}
+	}
+
 	// /homeseer/devices
 	@Override
 	public List<Device> getDevices() {

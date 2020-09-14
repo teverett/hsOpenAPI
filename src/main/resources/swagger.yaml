@@ -94,6 +94,31 @@ paths:
           description: 'Not Authenticated'
         '403':
           description: 'Access token does not have the required scope'
+  /homeseer/device/{ref}:
+    get:
+      tags:
+      - "homeseer"
+      summary: "Get device"
+      parameters:
+      - in: path
+        name: ref
+        type: integer
+        required: true
+        description: Reference ID of device
+      description: "This can only be done by the logged in user."
+      operationId: "getDevice"
+      produces:
+      - "application/json"
+      responses:
+        '200':
+          description: get device by id
+          schema:
+            type: Device
+            $ref: '#/definitions/Device'
+        '401':
+          description: 'Not Authenticated'
+        '403':
+          description: 'Access token does not have the required scope'
 securityDefinitions:
   basicAuth:
     type: basic

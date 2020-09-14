@@ -7,6 +7,14 @@ A Java [OpenAPI](https://en.wikipedia.org/wiki/OpenAPI_Specification) bridge for
 
 hsOpenAPI uses [hsClient](https://github.com/teverett/hsclient)
 
+## Usage
+
+Just run the executable jar after compilation
+
+## OpenAPI
+
+The OpenAPI spec for hsOpenAPI is [here](https://github.com/teverett/hsOpenAPI/blob/master/src/main/resources/swagger.yaml)
+
 ## License
 
 hsOpenAPI is distributed under the BSD 3-Clause License.
