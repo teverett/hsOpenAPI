@@ -21,6 +21,7 @@ public class HomeseerApiImpl implements HomeseerApi {
 	 */
 	private static final Logger logger = LoggerFactory.getLogger(HomeseerApiImpl.class);
 
+	// /homeseer/device/{ref}
 	@Override
 	public Device getDevice(Integer ref) {
 		HSClient hsClient = null;
