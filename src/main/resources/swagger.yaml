@@ -119,6 +119,26 @@ paths:
           description: 'Not Authenticated'
         '403':
           description: 'Access token does not have the required scope'
+  /homeseer/events:
+    get:
+      tags:
+      - "homeseer"
+      summary: "Get all events"
+      description: "This can only be done by the logged in user."
+      operationId: "getEvents"
+      produces:
+      - "application/json"
+      responses:
+        '200':
+          description: list of events
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Event'
+        '401':
+          description: 'Not Authenticated'
+        '403':
+          description: 'Access token does not have the required scope'
 securityDefinitions:
   basicAuth:
     type: basic
@@ -154,8 +174,19 @@ definitions:
       status:
         type: "string"
       last_change:
-        type: "string"
+        type: "integer"
       device_type_string:
         type: "string"
     xml:
       name: "Device"
+  Event:
+    type: "object"
+    properties:
+      group:
+        type: "string"
+      name:
+        type: "string"
+      id:
+        type: "string"
+    xml:
+      name: "Event"

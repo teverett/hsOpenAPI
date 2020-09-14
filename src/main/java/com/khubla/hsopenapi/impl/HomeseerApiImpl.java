@@ -8,6 +8,7 @@ import javax.ws.rs.*;
 import org.modelmapper.*;
 import org.openapitools.api.*;
 import org.openapitools.model.Device;
+import org.openapitools.model.Event;
 import org.openapitools.model.System;
 import org.slf4j.*;
 
@@ -61,6 +62,36 @@ public class HomeseerApiImpl implements HomeseerApi {
 					devices.add(modelMapper.map(device, Device.class));
 				}
 				return devices;
+			} else {
+				throw new NotFoundException();
+			}
+		} catch (final Exception e) {
+			throw new InternalServerErrorException(e);
+		} finally {
+			try {
+				if (null != hsClient) {
+					hsClient.close();
+				}
+			} catch (final Exception e) {
+				logger.warn("Exception closing HSClient", e);
+			}
+		}
+	}
+
+	// /homeseer/events
+	@Override
+	public List<Event> getEvents() {
+		HSClient hsClient = null;
+		try {
+			final ModelMapper modelMapper = new ModelMapper();
+			hsClient = getHSClient();
+			final Map<Integer, com.khubla.hsclient.domain.Event> map = hsClient.getEventsById();
+			if (null != map) {
+				final List<Event> events = new ArrayList<Event>();
+				for (final com.khubla.hsclient.domain.Event event : map.values()) {
+					events.add(modelMapper.map(event, Event.class));
+				}
+				return events;
 			} else {
 				throw new NotFoundException();
 			}
