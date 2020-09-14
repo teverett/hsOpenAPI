@@ -175,6 +175,7 @@ definitions:
         type: "string"
       last_change:
         type: "integer"
+        format: "int64"
       device_type_string:
         type: "string"
     xml:

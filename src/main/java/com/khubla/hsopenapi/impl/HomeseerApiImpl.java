@@ -27,7 +27,7 @@ public class HomeseerApiImpl implements HomeseerApi {
 	public Device getDevice(Integer ref) {
 		HSClient hsClient = null;
 		try {
-			final ModelMapper modelMapper = new ModelMapper();
+			final ModelMapper modelMapper = getModelMapper();
 			hsClient = getHSClient();
 			final com.khubla.hsclient.domain.Device device = hsClient.getDevice(ref);
 			if (null != device) {
@@ -53,7 +53,7 @@ public class HomeseerApiImpl implements HomeseerApi {
 	public List<Device> getDevices() {
 		HSClient hsClient = null;
 		try {
-			final ModelMapper modelMapper = new ModelMapper();
+			final ModelMapper modelMapper = getModelMapper();
 			hsClient = getHSClient();
 			final Map<Integer, com.khubla.hsclient.domain.Device> map = hsClient.getDevicesByRef();
 			if (null != map) {
@@ -83,7 +83,7 @@ public class HomeseerApiImpl implements HomeseerApi {
 	public List<Event> getEvents() {
 		HSClient hsClient = null;
 		try {
-			final ModelMapper modelMapper = new ModelMapper();
+			final ModelMapper modelMapper = getModelMapper();
 			hsClient = getHSClient();
 			final Map<Integer, com.khubla.hsclient.domain.Event> map = hsClient.getEventsById();
 			if (null != map) {
@@ -118,6 +118,12 @@ public class HomeseerApiImpl implements HomeseerApi {
 	private HSClient getHSClient() throws HSClientException, IOException {
 		final HSClient ret = new HSClientImpl();
 		ret.connect(Configuration.getInstance().getHsConfiguration());
+		return ret;
+	}
+
+	private ModelMapper getModelMapper() {
+		ModelMapper ret = new ModelMapper();
+		ret.addConverter(new DateConverter());
 		return ret;
 	}
 
@@ -176,7 +182,7 @@ public class HomeseerApiImpl implements HomeseerApi {
 	public List<System> getSystems() {
 		HSClient hsClient = null;
 		try {
-			final ModelMapper modelMapper = new ModelMapper();
+			final ModelMapper modelMapper = getModelMapper();
 			hsClient = getHSClient();
 			final List<HSSystem> lst = hsClient.getSystems();
 			if (null != lst) {
