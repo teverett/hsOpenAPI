@@ -7,6 +7,7 @@ import javax.ws.rs.*;
 
 import org.modelmapper.*;
 import org.openapitools.api.*;
+import org.openapitools.model.Counter;
 import org.openapitools.model.Device;
 import org.openapitools.model.Event;
 import org.openapitools.model.System;
@@ -21,6 +22,52 @@ public class HomeseerApiImpl implements HomeseerApi {
 	 * logger
 	 */
 	private static final Logger logger = LoggerFactory.getLogger(HomeseerApiImpl.class);
+
+	// /homeseer/changeddevices
+	@Override
+	public List<Integer> getChangedDevices() {
+		HSClient hsClient = null;
+		try {
+			hsClient = getHSClient();
+			return hsClient.getChangedDevices();
+		} catch (final Exception e) {
+			throw new InternalServerErrorException(e);
+		} finally {
+			try {
+				if (null != hsClient) {
+					hsClient.close();
+				}
+			} catch (final Exception e) {
+				logger.warn("Exception closing HSClient", e);
+			}
+		}
+	}
+
+	// /homeseer/counter/{name}
+	@Override
+	public Counter getCounter(String name) {
+		HSClient hsClient = null;
+		try {
+			final ModelMapper modelMapper = getModelMapper();
+			hsClient = getHSClient();
+			final com.khubla.hsclient.domain.Counter counter = hsClient.getCounter(name);
+			if (null != counter) {
+				return modelMapper.map(counter, Counter.class);
+			} else {
+				throw new NotFoundException();
+			}
+		} catch (final Exception e) {
+			throw new InternalServerErrorException(e);
+		} finally {
+			try {
+				if (null != hsClient) {
+					hsClient.close();
+				}
+			} catch (final Exception e) {
+				logger.warn("Exception closing HSClient", e);
+			}
+		}
+	}
 
 	// /homeseer/device/{ref}
 	@Override
@@ -55,7 +102,7 @@ public class HomeseerApiImpl implements HomeseerApi {
 		HSClient hsClient = null;
 		try {
 			final ModelMapper modelMapper = getModelMapper();
-			modelMapper.addMappings(new DeviceMap());
+			// modelMapper.addMappings(new DeviceMap());
 			hsClient = getHSClient();
 			final Map<Integer, com.khubla.hsclient.domain.Device> map = hsClient.getDevicesByRef();
 			if (null != map) {
@@ -123,12 +170,6 @@ public class HomeseerApiImpl implements HomeseerApi {
 		return ret;
 	}
 
-	private ModelMapper getModelMapper() {
-		ModelMapper ret = new ModelMapper();
-		ret.addConverter(new DateConverter());
-		return ret;
-	}
-
 	// /homeseer/locations1
 	@Override
 	public List<String> getLocations1() {
@@ -163,6 +204,36 @@ public class HomeseerApiImpl implements HomeseerApi {
 			final List<String> lst = hsClient.getLocations2();
 			if (null != lst) {
 				return lst;
+			} else {
+				throw new NotFoundException();
+			}
+		} catch (final Exception e) {
+			throw new InternalServerErrorException(e);
+		} finally {
+			try {
+				if (null != hsClient) {
+					hsClient.close();
+				}
+			} catch (final Exception e) {
+				logger.warn("Exception closing HSClient", e);
+			}
+		}
+	}
+
+	private ModelMapper getModelMapper() {
+		final ModelMapper ret = new ModelMapper();
+		ret.addConverter(new DateConverter());
+		return ret;
+	}
+
+	@Override
+	public String getSetting(String name) {
+		HSClient hsClient = null;
+		try {
+			hsClient = getHSClient();
+			final String ret = hsClient.getSetting(name);
+			if (null != ret) {
+				return ret;
 			} else {
 				throw new NotFoundException();
 			}

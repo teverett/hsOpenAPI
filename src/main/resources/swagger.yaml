@@ -139,6 +139,75 @@ paths:
           description: 'Not Authenticated'
         '403':
           description: 'Access token does not have the required scope'
+  /homeseer/changeddevices:
+    get:
+      tags:
+      - "homeseer"
+      summary: "Get id's of all changed devices"
+      description: "This can only be done by the logged in user."
+      operationId: "getChangedDevices"
+      produces:
+      - "application/json"
+      responses:
+        '200':
+          description: list of ids
+          schema:
+            type: array
+            items:
+              type: integer
+        '401':
+          description: 'Not Authenticated'
+        '403':
+          description: 'Access token does not have the required scope'
+  /homeseer/counter/{name}:
+    get:
+      tags:
+      - "homeseer"
+      summary: "Get counter value"
+      parameters:
+      - in: path
+        name: name
+        type: string
+        required: true
+        description: Name of counter
+      description: "This can only be done by the logged in user."
+      operationId: "getCounter"
+      produces:
+      - "application/json"
+      responses:
+        '200':
+          description: list of counters
+          schema:
+            type: object
+            $ref: '#/definitions/Counter'
+        '401':
+          description: 'Not Authenticated'
+        '403':
+          description: 'Access token does not have the required scope'
+  /homeseer/setting/{name}:
+    get:
+      tags:
+      - "homeseer"
+      summary: "Get setting value"
+      parameters:
+      - in: path
+        name: name
+        type: string
+        required: true
+        description: Name of setting
+      description: "This can only be done by the logged in user."
+      operationId: "getSetting"
+      produces:
+      - "application/json"
+      responses:
+        '200':
+          description: setting value
+          schema:
+            type: string
+        '401':
+          description: 'Not Authenticated'
+        '403':
+          description: 'Access token does not have the required scope'
 securityDefinitions:
   basicAuth:
     type: basic
@@ -181,6 +250,17 @@ definitions:
     xml:
       name: "Device"
   Event:
+    type: "object"
+    properties:
+      group:
+        type: "string"
+      name:
+        type: "string"
+      id:
+        type: "string"
+    xml:
+      name: "Event"
+  Counter:
     type: "object"
     properties:
       group:
