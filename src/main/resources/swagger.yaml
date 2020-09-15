@@ -14,7 +14,7 @@ schemes:
 - "https"
 - "http"
 paths:
-  /homeseer/getsystems:
+  /homeseer/systems:
     get:
       tags:
       - "homeseer"
