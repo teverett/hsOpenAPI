@@ -5,6 +5,13 @@
 
 A Java [OpenAPI](https://en.wikipedia.org/wiki/OpenAPI_Specification) bridge for HomeSeer. 
 
+hsOpenAPI is one of numerous HomeSeer support applications created by khubla.com, including
+
+* [hsClient](https://github.com/teverett/hsclient)
+* [hsInflux](https://github.com/teverett/hsinflux)
+* [hsMQTT](https://github.com/teverett/hsOpenAPI)
+* [hsOpenAPI](https://github.com/teverett/hsOpenAPI)
+
 hsOpenAPI uses [hsClient](https://github.com/teverett/hsclient)
 
 ## Usage
