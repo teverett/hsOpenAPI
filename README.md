@@ -18,6 +18,10 @@ hsOpenAPI uses [hsClient](https://github.com/teverett/hsclient)
 
 Just run the executable jar after compilation. hsOpenAPI will be available on port http/8080 by default.
 
+For example, you can get the device list at:
+
+`http://localhost:8080/homeseer/devices`
+
 ## OpenAPI
 
 The OpenAPI spec for hsOpenAPI is [here](https://github.com/teverett/hsOpenAPI/blob/master/src/main/resources/swagger.yaml)
