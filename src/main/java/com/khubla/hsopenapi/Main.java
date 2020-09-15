@@ -14,7 +14,7 @@ class Main {
 	private static final String CONFIG_OPTION = "config";
 
 	public static void main(String[] args) {
-		System.out.println("Duety Microservices Engine");
+		System.out.println("khubla.com hsOpenAPI");
 		try {
 			/*
 			 * options
