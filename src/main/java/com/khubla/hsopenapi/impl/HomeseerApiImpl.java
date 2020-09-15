@@ -23,6 +23,44 @@ public class HomeseerApiImpl implements HomeseerApi {
 	 */
 	private static final Logger logger = LoggerFactory.getLogger(HomeseerApiImpl.class);
 
+	@Override
+	public void controlDeviceByLabel(Integer ref, String label) {
+		HSClient hsClient = null;
+		try {
+			hsClient = getHSClient();
+			hsClient.controlDeviceByLabel(ref, label);
+		} catch (final Exception e) {
+			throw new InternalServerErrorException(e);
+		} finally {
+			try {
+				if (null != hsClient) {
+					hsClient.close();
+				}
+			} catch (final Exception e) {
+				logger.warn("Exception closing HSClient", e);
+			}
+		}
+	}
+
+	@Override
+	public void controlDeviceByValue(Integer ref, Double value) {
+		HSClient hsClient = null;
+		try {
+			hsClient = getHSClient();
+			hsClient.controlDeviceByValue(ref, value);
+		} catch (final Exception e) {
+			throw new InternalServerErrorException(e);
+		} finally {
+			try {
+				if (null != hsClient) {
+					hsClient.close();
+				}
+			} catch (final Exception e) {
+				logger.warn("Exception closing HSClient", e);
+			}
+		}
+	}
+
 	// /homeseer/changeddevices
 	@Override
 	public List<Integer> getChangedDevices() {

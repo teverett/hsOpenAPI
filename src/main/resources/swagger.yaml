@@ -230,6 +230,61 @@ paths:
           description: 'Not Authenticated'
         '403':
           description: 'Access token does not have the required scope'
+  /homeseer/controlDeviceByLabel/{ref}/{label}:
+    post:
+      tags:
+      - "homeseer"
+      summary: "Control device by label"
+      parameters:
+      - in: path
+        name: ref
+        type: integer
+        required: true
+        description: device ref id
+      - in: path
+        name: label
+        type: string
+        required: true
+        description: value
+      description: "This can only be done by the logged in user."
+      operationId: "controlDeviceByLabel"
+      produces:
+      - "application/json"
+      responses:
+        '200':
+          description: ok
+        '401':
+          description: 'Not Authenticated'
+        '403':
+          description: 'Access token does not have the required scope'
+  /homeseer/controlDeviceByValue/{ref}/{value}:
+    post:
+      tags:
+      - "homeseer"
+      summary: "Control device by label"
+      parameters:
+      - in: path
+        name: ref
+        type: integer
+        required: true
+        description: device ref id
+      - in: path
+        name: value
+        type: number
+        format: double
+        required: true
+        description: value
+      description: "This can only be done by the logged in user."
+      operationId: "controlDeviceByValue"
+      produces:
+      - "application/json"
+      responses:
+        '200':
+          description: ok
+        '401':
+          description: 'Not Authenticated'
+        '403':
+          description: 'Access token does not have the required scope'
 securityDefinitions:
   basicAuth:
     type: basic
