@@ -16,7 +16,7 @@ hsOpenAPI uses [hsClient](https://github.com/teverett/hsclient)
 
 ## Usage
 
-Just run the executable jar after compilation
+Just run the executable jar after compilation. hsOpenAPI will be available on port http/8080 by default.
 
 ## OpenAPI
 
