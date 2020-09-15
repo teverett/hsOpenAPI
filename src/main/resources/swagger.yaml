@@ -208,6 +208,28 @@ paths:
           description: 'Not Authenticated'
         '403':
           description: 'Access token does not have the required scope'
+  /homeseer/event/{id}:
+    post:
+      tags:
+      - "homeseer"
+      summary: "Run Event"
+      parameters:
+      - in: path
+        name: id
+        type: integer
+        required: true
+        description: event id
+      description: "This can only be done by the logged in user."
+      operationId: "runEvent"
+      produces:
+      - "application/json"
+      responses:
+        '200':
+          description: ok
+        '401':
+          description: 'Not Authenticated'
+        '403':
+          description: 'Access token does not have the required scope'
 securityDefinitions:
   basicAuth:
     type: basic
