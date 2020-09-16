@@ -285,6 +285,24 @@ paths:
           description: 'Not Authenticated'
         '403':
           description: 'Access token does not have the required scope'
+  /homeseer/version:
+    get:
+      tags:
+      - "homeseer"
+      summary: "Get HomeSeer API version"
+      description: "This can only be done by the logged in user."
+      operationId: "getVersion"
+      produces:
+      - "application/json"
+      responses:
+        '200':
+          description: version string
+          schema:
+            type: string
+        '401':
+          description: 'Not Authenticated'
+        '403':
+          description: 'Access token does not have the required scope'
 securityDefinitions:
   basicAuth:
     type: basic

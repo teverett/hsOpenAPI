@@ -319,6 +319,25 @@ public class HomeseerApiImpl implements HomeseerApi {
 	}
 
 	@Override
+	public String getVersion() {
+		HSClient hsClient = null;
+		try {
+			hsClient = getHSClient();
+			return hsClient.getVersion();
+		} catch (final Exception e) {
+			throw new InternalServerErrorException(e);
+		} finally {
+			try {
+				if (null != hsClient) {
+					hsClient.close();
+				}
+			} catch (final Exception e) {
+				logger.warn("Exception closing HSClient", e);
+			}
+		}
+	}
+
+	@Override
 	public void runEvent(Integer id) {
 		HSClient hsClient = null;
 		try {
