@@ -152,6 +152,7 @@
 				<version>${openapi-generator-maven-plugin.version}</version>
 				<executions>
 					<execution>
+						<id>jaxrs-cxf</id>
 						<goals>
 							<goal>generate</goal>
 						</goals>
@@ -164,6 +165,17 @@
 							</configOptions>
 							<generateModelTests>false</generateModelTests>
 							<generateApiTests>false</generateApiTests>
+						</configuration>
+					</execution>
+					<execution>
+						<id>markdown</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/src/main/resources/swagger.yaml</inputSpec>
+							<generatorName>markdown</generatorName>
+							<output>apidocumentation/</output>
 						</configuration>
 					</execution>
 				</executions>
