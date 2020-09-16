@@ -303,6 +303,25 @@ paths:
           description: 'Not Authenticated'
         '403':
           description: 'Access token does not have the required scope'
+  /homeseer/sessionconfig:
+    get:
+      tags:
+      - "homeseer"
+      summary: "Get HomeSeer Session Config"
+      description: "This can only be done by the logged in user."
+      operationId: "getSessionConfig"
+      produces:
+      - "application/json"
+      responses:
+        '200':
+          description: session config
+          schema:
+            type: object
+            $ref: '#/definitions/SessionConfig'
+        '401':
+          description: 'Not Authenticated'
+        '403':
+          description: 'Access token does not have the required scope'
 securityDefinitions:
   basicAuth:
     type: basic
@@ -366,3 +385,40 @@ definitions:
         type: "string"
     xml:
       name: "Event"
+  SessionConfig:
+    type: "object"
+    properties:
+      hsversion:
+        type: "string"
+      isLocation1First:
+        type: "boolean"
+      useLocation2:
+        type: "boolean"
+      location1Label:
+        type: "string"
+      location2Label:
+        type: "string"
+      floor:
+        type: "string"
+      username:
+        type: "string"
+      version:
+        type: "string"
+      userPermissions:
+        type: "object"
+        $ref: '#/definitions/UserPermissions'
+    xml:
+      name: "SessionConfig"
+  UserPermissions:
+    type: "object"
+    properties:
+      user_permissions:
+        type: "string"
+      user_permissions_valid:
+        type: "boolean"
+      eventAccess:
+        type: "boolean"
+      cameraAdd:
+        type: "boolean"
+    xml:
+      name: "UserPermissions"

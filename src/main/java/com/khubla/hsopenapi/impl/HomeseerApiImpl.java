@@ -10,6 +10,7 @@ import org.openapitools.api.*;
 import org.openapitools.model.Counter;
 import org.openapitools.model.Device;
 import org.openapitools.model.Event;
+import org.openapitools.model.SessionConfig;
 import org.openapitools.model.System;
 import org.slf4j.*;
 
@@ -262,6 +263,32 @@ public class HomeseerApiImpl implements HomeseerApi {
 		final ModelMapper ret = new ModelMapper();
 		ret.addConverter(new DateConverter());
 		return ret;
+	}
+
+	// /homeseer/sessionconfig
+	@Override
+	public SessionConfig getSessionConfig() {
+		HSClient hsClient = null;
+		try {
+			final ModelMapper modelMapper = getModelMapper();
+			hsClient = getHSClient();
+			final com.khubla.hsclient.domain.SessionConfig sessionConfig = hsClient.getSessionConfig();
+			if (null != sessionConfig) {
+				return modelMapper.map(sessionConfig, SessionConfig.class);
+			} else {
+				throw new NotFoundException();
+			}
+		} catch (final Exception e) {
+			throw new InternalServerErrorException(e);
+		} finally {
+			try {
+				if (null != hsClient) {
+					hsClient.close();
+				}
+			} catch (final Exception e) {
+				logger.warn("Exception closing HSClient", e);
+			}
+		}
 	}
 
 	@Override
