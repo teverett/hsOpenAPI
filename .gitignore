@@ -12,3 +12,5 @@ dependency-reduced-pom.xml
 /hsmqqt.properties
 /hsmqtt.properties
 /hsopenapi.properties
+/apidocumentation/.openapi-generator-ignore
+/apidocumentation/.openapi-generator

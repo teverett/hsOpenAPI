@@ -14,6 +14,10 @@ hsOpenAPI is one of numerous HomeSeer support applications created by khubla.com
 
 hsOpenAPI uses [hsClient](https://github.com/teverett/hsclient)
 
+## API Documentation
+
+API Documentation is [here](apidocumentation/README.md) 
+
 ## Usage
 
 Just run the executable jar after compilation. hsOpenAPI will be available on port http/8080 by default.
