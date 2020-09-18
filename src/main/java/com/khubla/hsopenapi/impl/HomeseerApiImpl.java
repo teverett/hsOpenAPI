@@ -114,7 +114,6 @@ public class HomeseerApiImpl implements HomeseerApi {
 		HSClient hsClient = null;
 		try {
 			final ModelMapper modelMapper = getModelMapper();
-			modelMapper.addMappings(new DeviceMap());
 			hsClient = getHSClient();
 			final com.khubla.hsclient.domain.Device device = hsClient.getDevice(ref);
 			if (null != device) {
@@ -141,7 +140,6 @@ public class HomeseerApiImpl implements HomeseerApi {
 		HSClient hsClient = null;
 		try {
 			final ModelMapper modelMapper = getModelMapper();
-			// modelMapper.addMappings(new DeviceMap());
 			hsClient = getHSClient();
 			final Map<Integer, com.khubla.hsclient.domain.Device> map = hsClient.getDevicesByRef();
 			if (null != map) {
@@ -261,7 +259,8 @@ public class HomeseerApiImpl implements HomeseerApi {
 
 	private ModelMapper getModelMapper() {
 		final ModelMapper ret = new ModelMapper();
-		ret.addConverter(new DateConverter());
+		ret.addMappings(new DevicePropertyMap());
+		ret.addMappings(new UserPermissionsPropertyMap());
 		return ret;
 	}
 
