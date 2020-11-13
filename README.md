@@ -1,5 +1,4 @@
 ![CI](https://github.com/teverett/hsopenapi/workflows/CI/badge.svg)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/92734c5b095c44b48f95bf2d993cddb7)](https://app.codacy.com/manual/teverett/hsopenapi?utm_source=github.com&utm_medium=referral&utm_content=teverett/hsopenapi&utm_campaign=Badge_Grade_Dashboard)
 
 # HomeSeer hsOpenAPI
 
